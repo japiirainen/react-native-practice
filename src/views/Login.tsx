@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Text, Button } from 'react-native'
 import { Center } from '../Center'
+import { AuthNavProps } from '../ParamLists/AuthParamList'
+import { AuthContext } from '../AuthProvider'
 
-interface LoginProps {
-	navigation: any
-}
-export const Login: React.FC<LoginProps> = ({ navigation }) => {
+export const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
+	const { login } = useContext(AuthContext)
 	return (
 		<Center>
-			<Text>I am Login!</Text>
+			<Text>Route name: {route.name}</Text>
+			<Button title='Log me in' onPress={login} />
 			<Button
 				title='go to register'
 				onPress={() => {

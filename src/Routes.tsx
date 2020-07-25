@@ -1,17 +1,38 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
+import React, { useState, useEffect, useContext } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { Login } from './views/Login'
-import { Register } from './views/Register'
-const Stack = createStackNavigator()
+import { Center } from './Center'
+import { ActivityIndicator, AsyncStorage } from 'react-native'
+import { AuthContext } from './AuthProvider'
+import { AppTabs } from './Components/AppTabs'
+import { AuthStack } from './Components/AuthStack'
 
 export const Routes: React.FC = () => {
-	return (
-		<NavigationContainer>
-			<Stack.Navigator initialRouteName='Login'>
-				<Stack.Screen name='Login' component={Login} />
-				<Stack.Screen name='Register' component={Register} />
-			</Stack.Navigator>
-		</NavigationContainer>
-	)
+    const { user, login } = useContext(AuthContext)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        AsyncStorage.getItem('user')
+            .then((userString) => {
+                if (userString) {
+                    login()
+                }
+                setLoading(false)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }, [])
+
+    if (loading)
+        return (
+            <Center>
+                <ActivityIndicator size="large" />
+            </Center>
+        )
+
+    return (
+        <NavigationContainer>
+            {user ? <AppTabs /> : <AuthStack />}
+        </NavigationContainer>
+    )
 }
