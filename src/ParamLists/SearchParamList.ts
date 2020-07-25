@@ -2,11 +2,11 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 import { ProductParamList } from './ProductParamList'
 
-export type HomeParamList = {
-	Feed: undefined
+export type SearchParams = {
+	Search: undefined
 } & ProductParamList
 
-export type HomeNavProps<T extends keyof HomeParamList> = {
-	navigation: StackNavigationProp<HomeParamList, T>
-	route: RouteProp<HomeParamList, T>
+export type SearchNavProps<T extends keyof SearchParams> = {
+	navigation: StackNavigationProp<SearchParams, T>
+	route: RouteProp<SearchParams, T>
 }
