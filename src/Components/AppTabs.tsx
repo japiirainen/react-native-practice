@@ -1,16 +1,40 @@
 import React from 'react'
+import { AntDesign } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { AppParamList } from '../ParamLists/AppParamList'
-import { Home } from '../views/Home'
 import { Search } from '../views/Search'
+import { HomeStack } from '../Stacks/HomeStack'
 
 const Tabs = createBottomTabNavigator<AppParamList>()
 
 export const AppTabs = () => {
-	return (
-		<Tabs.Navigator>
-			<Tabs.Screen name='Home' component={Home} />
-			<Tabs.Screen name='Search' component={Search} />
-		</Tabs.Navigator>
-	)
+    return (
+        <Tabs.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ color, size }) => {
+                    let iconName
+
+                    if (route.name === 'Home') {
+                        iconName = 'home'
+                    } else if (route.name === 'Search') {
+                        iconName = 'search1'
+                    }
+                    return (
+                        <AntDesign
+                            name={`${iconName}`}
+                            size={size}
+                            color={color}
+                        />
+                    )
+                },
+            })}
+            tabBarOptions={{
+                activeTintColor: 'purple',
+                inactiveTintColor: 'gray',
+            }}
+        >
+            <Tabs.Screen name="Home" component={HomeStack} />
+            <Tabs.Screen name="Search" component={Search} />
+        </Tabs.Navigator>
+    )
 }

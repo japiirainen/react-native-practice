@@ -4,7 +4,7 @@ import { Center } from './Center'
 import { ActivityIndicator, AsyncStorage } from 'react-native'
 import { AuthContext } from './AuthProvider'
 import { AppTabs } from './Components/AppTabs'
-import { AuthStack } from './Components/AuthStack'
+import { AuthStack } from './Stacks/AuthStack'
 
 export const Routes: React.FC = () => {
     const { user, login } = useContext(AuthContext)
